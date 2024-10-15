@@ -1,34 +1,19 @@
 <x-layout>
     <div class="container mx-auto p-6">
-        <h1 class="text-2xl font-bold text-center mb-6 text-red-500">Board Games Collection</h1>
+        <h1 class="text-2xl font-bold text-center mb-6 text-red-600">Board Games Collection</h1>
 
-        <table class="min-w-full table-auto bg-gray-800 text-white rounded-lg shadow-lg">
-            <thead>
-            <tr class="bg-gray-700">
-                <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-200">Game Name</th>
-                <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-200">Image</th>
-                <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-200">Price</th>
-                <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-200">Description</th>
-                <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-200">Rating</th>
-            </tr>
-            </thead>
-            <tbody>
+        <div class="flex flex-wrap justify-center">
             @foreach ($games as $game)
-                <tr class="bg-gray-900 border-b border-gray-700 hover:bg-gray-700 transition-all">
-                    <td class="border px-4 py-2">
-                        <a href="{{ route('games.show', $game->id) }}" class="text-blue-500 hover:underline">
-                            {{ $game->gameName }}
-                        </a>
-                    </td>
-                    <td class="px-6 py-4">
-                        <img src="{{ asset('images/' . $game->image) }}" alt="{{ $game->gameName }}" class="h-16 w-16 rounded">
-                    </td>
-                    <td class="px-6 py-4 text-green-400 font-semibold">${{ number_format($game->price, 2) }}</td>
-                    <td class="px-6 py-4 text-gray-300">{{ Str::limit($game->description, 50, '...') }}</td>
-                    <td class="px-6 py-4 text-yellow-400 font-semibold">{{ $game->rating }}</td>
-                </tr>
+                <div class="bg-gray-100 m-4 p-4 rounded-lg shadow-lg flex flex-col items-center w-60">
+                    <a href="{{ route('games.show', $game->id) }}" class="text-red-600 hover:underline mb-2 text-lg font-bold">
+                        {{ $game->gameName }}
+                    </a>
+                    <img src="{{ asset('images/' . $game->image) }}" alt="{{ $game->gameName }}" class="h-32 w-32 rounded mb-2">
+                    <div class="text-green-600 font-semibold">${{ number_format($game->price, 2) }}</div>
+                    <div class="text-gray-700">{{ Str::limit($game->description, 50, '...') }}</div>
+                    <div class="text-yellow-600 font-semibold mt-2">{{ $game->rating }}</div>
+                </div>
             @endforeach
-            </tbody>
-        </table>
+        </div>
     </div>
 </x-layout>
