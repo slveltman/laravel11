@@ -32,7 +32,6 @@ class GameController extends Controller
     {
         $game = new Game();
         $game->gameName = $request->input('gameName');
-        $game->image = 'default.png';
         $game->price = $request->input('price');
         $game->description = $request->input('description');
         $game->rating = $request->input('rating');
@@ -58,17 +57,36 @@ class GameController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Game $games)
+    public function edit(Game $game)
     {
-        //
+        // Return the view with the game data
+        return view('games.edit', ['game' => $game]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request,  $games)
+    public function update(Request $request, Game $game)
     {
-        //
+
+//         Validate the form data
+        $request->validate([
+            'gameName' => 'required',
+            'price' => 'required|numeric',
+            'description' => 'required',
+            'rating' => 'required|numeric',
+        ]);
+
+
+        $game->update([
+            'gameName' => $request->gameName,
+            'price' => $request->price,
+            'description' => $request->description,
+            'rating' => $request->rating,
+        ]);
+
+
+
+        // Redirect back to the index with a success message
+        return redirect()->route('games.index')->with('success', 'Game updated successfully!');
+
     }
 
     /**

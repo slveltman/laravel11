@@ -8,7 +8,6 @@
                     <a href="{{ route('games.show', $game->id) }}" class="text-red-600 hover:underline mb-2 text-lg font-bold">
                         {{ $game->gameName }}
                     </a>
-                    <img src="{{ asset('images/' . $game->image) }}" alt="{{ $game->gameName }}" class="h-32 w-32 rounded mb-2">
                     <div class="text-green-600 font-semibold">${{ number_format($game->price, 2) }}</div>
                     <div class="text-gray-700">{{ Str::limit($game->description, 50, '...') }}</div>
                     <div class="text-yellow-600 font-semibold mt-2">{{ $game->rating }}</div>

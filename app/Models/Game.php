@@ -14,4 +14,7 @@ class Game extends Model
     {
         return $this->hasMany(review::class);
     }
+    // In your Game.php model
+    protected $fillable = ['gameName', 'price', 'description', 'rating'];
+
 }

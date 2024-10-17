@@ -25,6 +25,9 @@ route::resource('/games', GameController::class);
 Route::get('/games/{id}', [GameController::class, 'show'])->name('games.show');
 Route::delete('/games/{game}', [GameController::class, 'destroy'])->name('games.destroy');
 
+Route::put('/games/{id}', [GameController::class, 'update'])->name('games.update');
+Route::get('/games/{game}/edit', [GameController::class, 'edit'])->name('games.edit');
+
 route::resource('/review', ReviewController::class);
 Route::get('/review/{game}', [ReviewController::class, 'show'])->name('review.show');
 
