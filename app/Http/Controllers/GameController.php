@@ -22,7 +22,7 @@ class GameController extends Controller
      */
     public function create()
     {
-        //
+        return view('games.create');
     }
 
     /**
@@ -30,7 +30,16 @@ class GameController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $game = new Game();
+        $game->gameName = $request->input('gameName');
+        $game->image = 'default.png';
+        $game->price = $request->input('price');
+        $game->description = $request->input('description');
+        $game->rating = $request->input('rating');
+        $game->save();
+        return redirect()-> route('games.index');
+
+
     }
 
     /**
@@ -65,8 +74,13 @@ class GameController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy( $games)
+    public function destroy(Game $game)
     {
-        //
+        // Delete the game
+        $game->delete();
+
+        // Redirect to the games index with a success message
+        return redirect()->route('games.index')->with('success', 'Game deleted successfully!');
     }
+
 }

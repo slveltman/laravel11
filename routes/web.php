@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -22,6 +23,11 @@ Route::middleware('auth')->group(function () {
 });
 route::resource('/games', GameController::class);
 Route::get('/games/{id}', [GameController::class, 'show'])->name('games.show');
+Route::delete('/games/{game}', [GameController::class, 'destroy'])->name('games.destroy');
+
+route::resource('/review', ReviewController::class);
+Route::get('/review/{game}', [ReviewController::class, 'show'])->name('review.show');
+
 
 
 require __DIR__.'/auth.php';

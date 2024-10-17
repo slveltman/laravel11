@@ -14,6 +14,12 @@
                     <div class="text-yellow-600 font-semibold mt-2">{{ $game->rating }}</div>
                 </div>
             @endforeach
+                @if (session('success'))
+                    <div class="bg-green-500 text-white p-4 rounded mb-4">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
         </div>
     </div>
 </x-layout>

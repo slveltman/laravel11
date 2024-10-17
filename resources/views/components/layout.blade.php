@@ -13,6 +13,7 @@
     <div class="space-x-4">
         <a href="{{ route('games.index') }}" class="text-red-600 hover:text-red-800">Overzicht</a>
         <a href="/welcome" class="text-red-600 hover:text-red-800">Home</a>
+        <a href="{{route("games.create" )}}" class="text-red-600 hover:text-red-800">create</a>
     </div>
 </nav>
 {{ $slot }}
