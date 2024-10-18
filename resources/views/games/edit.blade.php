@@ -23,7 +23,7 @@
 
             <div class="mb-4">
                 <label for="rating" class="block text-gray-300">Rating</label>
-                <input type="text" name="rating" id="rating" value="{{ $game->rating }}" class="w-full p-2 rounded bg-gray-700 text-white">
+                <input type="number" name="rating" id="rating" step="0.1" min="0" max="5" value="{{ $game->rating }}" class="w-full p-2 rounded bg-gray-700 text-white">
             </div>
 
             <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Update Game</button>

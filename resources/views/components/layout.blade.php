@@ -8,12 +8,14 @@
     <title>Overzicht Page</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-300">
 <nav class="bg-gray-200 p-4 flex justify-between items-center shadow-md">
     <div class="space-x-4">
-        <a href="{{ route('games.index') }}" class="text-red-600 hover:text-red-800">Overzicht</a>
-        <a href="/welcome" class="text-red-600 hover:text-red-800">Home</a>
-        <a href="{{route("games.create" )}}" class="text-red-600 hover:text-red-800">create</a>
+        <a href="{{ route('games.index') }}" class="text-red-600 hover:text-red-800">Home</a>
+        <a href="{{ route('games.index') }}" class="text-red-600 hover:text-red-800">Overview</a>
+        <a href="{{route("games.create" )}}" class="text-red-600 hover:text-red-800">Create</a>
+        <a href="{{ route('login') }}" class="text-red-600 hover:text-red-800">Login</a>
+        <a href="{{ route('register') }}" class="text-red-600 hover:text-red-800">Register</a>
     </div>
 </nav>
 {{ $slot }}

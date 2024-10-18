@@ -10,11 +10,58 @@ class GameController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $games = Game::all();
-        return view('games.index', ['games' => $games]);
+        // Start by creating a query object
+        $query = Game::query();
 
+        // Get the search input
+        $search = $request->input('search');
+
+        // If search is provided, filter the results by game name or description
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $q->where('gameName', 'like', "%{$search}%")
+                    ->orWhere('description', 'like', "%{$search}%");
+            });
+        }
+
+        // Get the sort option from the request
+        $sort_by = $request->query('sort_by');
+
+        // Apply sorting logic based on the user's choice
+        if ($sort_by == 'price_asc') {
+            $query->orderBy('price', 'asc');
+        } elseif ($sort_by == 'price_desc') {
+            $query->orderBy('price', 'desc');
+        } elseif ($sort_by == 'rating_asc') {
+            $query->orderBy('rating', 'asc');
+        } elseif ($sort_by == 'rating_desc') {
+            $query->orderBy('rating', 'desc');
+        }
+
+        // Filter by price range
+        $price_filter = $request->query('price_filter');
+
+        if ($price_filter == 'under_30') {
+            $query->where('price', '<', 30);
+        } elseif ($price_filter == 'over_30') {
+            $query->where('price', '>=', 30);
+        }
+
+        // Filter by rating range
+        $rating_filter = $request->query('rating_filter');
+
+        if ($rating_filter == 'over_3.5') {
+            $query->where('rating', '>', 3.5);
+        }elseif ($rating_filter == 'under_3.5') {
+            $query->where('rating', '<=', 3.5);
+        }
+
+        // Get the final results after applying search, sort, price, and rating filter
+        $games = $query->get();
+
+        return view('games.index', ['games' => $games]);
     }
 
     /**
@@ -30,6 +77,13 @@ class GameController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'gameName' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0',
+            'description' => 'required|string',
+            'rating' => 'required|numeric|min:0|max:5|regex:/^\d+(\.\d{1})?$/',
+        ]);
+
         $game = new Game();
         $game->gameName = $request->input('gameName');
         $game->price = $request->input('price');
@@ -46,8 +100,8 @@ class GameController extends Controller
      */
     public function show(Game $game)
     {
-        // This will retrieve a single game instance, not a collection
-//        $game = Game::findOrFail($games);
+
+        $game->load('reviews');
         return view('games.show', ['game' => $game]);
 
 
@@ -66,13 +120,13 @@ class GameController extends Controller
     public function update(Request $request, Game $game)
     {
 
-//         Validate the form data
         $request->validate([
-            'gameName' => 'required',
-            'price' => 'required|numeric',
-            'description' => 'required',
-            'rating' => 'required|numeric',
+            'gameName' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0',
+            'description' => 'required|string',
+            'rating' => 'required|numeric|min:0|max:5|regex:/^\d+(\.\d{1})?$/',
         ]);
+
 
 
         $game->update([

@@ -20,9 +20,9 @@ class ReviewController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Game $game)
     {
-        return view('reviews.create');
+        return view('reviews.create', ['game' => $game]);
     }
 
     /**
@@ -30,8 +30,16 @@ class ReviewController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $review = new Review();
+        $review->game_id = $request->input('game_id');
+//        $review->user_id = auth()->id();  // Assuming users are authenticated
+        $review->rating = $request->input('rating');
+        $review->review = $request->input('review');
+        $review->save();
+
+        return redirect()->route('games.show', $request->input('game_id'))->with('success', 'Review submitted successfully!');
     }
+
 
     /**
      * Display the specified resource.

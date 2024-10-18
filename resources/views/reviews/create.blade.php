@@ -2,8 +2,9 @@
     <div class="container mx-auto p-6">
         <h1 class="text-2xl font-bold text-center mb-6 text-red-500">Write a Review for {{ $game->game_name }}</h1>
 
-        <form action="{{ route('reviews.store', $game->id) }}" method="POST" class="max-w-lg mx-auto bg-gray-800 text-white p-6 rounded-lg shadow-lg">
+        <form action="{{ route('review.store') }}" method="POST">
             @csrf
+            <input type="hidden" name="game_id" value="{{ $game->id }}">
 
             <!-- Rating -->
             <div class="mb-4">
