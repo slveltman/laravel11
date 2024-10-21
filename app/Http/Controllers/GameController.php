@@ -10,6 +10,7 @@ class GameController extends Controller
     /**
      * Display a listing of the resource.
      */
+
     public function index(Request $request)
     {
         // Start by creating a query object
@@ -154,5 +155,4 @@ class GameController extends Controller
         // Redirect to the games index with a success message
         return redirect()->route('games.index')->with('success', 'Game deleted successfully!');
     }
-
 }

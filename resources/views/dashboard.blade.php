@@ -10,6 +10,9 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     {{ __("You're logged in!") }}
+                    <h1> get back to:</h1>
+                    <br>
+                    <a href="{{ route('games.index') }}" class="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600">overview</a>
                 </div>
             </div>
         </div>

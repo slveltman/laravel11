@@ -15,3 +15,6 @@ reviews. het is nog niet gelukt om bij een product een review te zetten want het
 
 17-10:
 vandaag heb ik de crud afgemaakt ook heb ik de image eruit gehaald.
+
+18-10:
+vandaag heb ik de zoek en filter gemaakt en heb ik de login en registreer op de nav gezet 
