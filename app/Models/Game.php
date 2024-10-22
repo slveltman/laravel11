@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Game extends Model
@@ -16,5 +17,11 @@ class Game extends Model
     }
     // In your Game.php model
     protected $fillable = ['gameName', 'price', 'description', 'rating'];
+
+    // Relatie met de User
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 
 }

@@ -12,5 +12,7 @@ class review extends Model
     {
         return $this->belongsTo(Game::class);
     }
-
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
 }

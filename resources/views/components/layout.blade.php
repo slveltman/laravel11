@@ -13,7 +13,11 @@
     <div class="space-x-4">
         <a href="{{ route('games.index') }}" class="text-red-600 hover:text-red-800">Home</a>
         <a href="{{ route('games.index') }}" class="text-red-600 hover:text-red-800">Overview</a>
-        @auth<a href="{{route("games.create" )}}" class="text-red-600 hover:text-red-800">Create</a>@endauth
+        @auth
+
+            <a href="{{route("games.create" )}}" class="text-red-600 hover:text-red-800">Create</a>
+
+        @endauth
         <a href="{{ route('login') }}" class="text-red-600 hover:text-red-800">Login</a>
         <a href="{{ route('register') }}" class="text-red-600 hover:text-red-800">Register</a>
     </div>

@@ -32,7 +32,7 @@ class ReviewController extends Controller
     {
         $review = new Review();
         $review->game_id = $request->input('game_id');
-//        $review->user_id = auth()->id();  // Assuming users are authenticated
+        $review->user_id = auth()->id();  // Assuming users are authenticated
         $review->rating = $request->input('rating');
         $review->review = $request->input('review');
         $review->save();

@@ -8,7 +8,6 @@
             <a href="{{ route('games.index') }}">reset</a>
 
         <!-- Filter Dropdown -->
-
             <label for="sort_by" class="block text-gray-700">Sort by:</label>
             <select name="sort_by" id="sort_by" onchange="this.form.submit()" class="bg-gray-200 p-2 rounded">
                 <option value="">Default</option>
@@ -32,18 +31,14 @@
         </form>
 
         <div class="flex flex-wrap justify-center">
-            @if (session('success'))
-                <div class="bg-green-500 text-white p-4 rounded mb-4">
-                    {{ session('success') }}
-                </div>
-            @endif
+{{--            for loop om alle games te showen --}}
                 @foreach ($games as $game)
                 <div class="bg-gray-100 m-4 p-4 rounded-lg shadow-lg flex flex-col items-center w-60">
                     <a href="{{ route('games.show', $game->id) }}" class="text-red-600 hover:underline mb-2 text-lg font-bold">
                         {{ $game->gameName }}
                     </a>
-                    <div class="text-green-600 font-semibold">${{ number_format($game->price, 2) }}</div>
-                    <div class="text-gray-700">{{ Str::limit($game->description, 50, '...') }}</div>
+                    <div class="text-green-600 font-semibold">${{ $game->price, 2 }}</div>
+                    <div class="text-gray-700">{{ Str::limit($game->description, 50) }}</div>
                     <div class="text-yellow-600 font-semibold mt-2">{{ $game->rating }}/5</div>
                     @auth
                         <a href="{{ route('review.create', ['game' => $game->id]) }}" class="text-blue-500 hover:underline">Schrijf een review</a>

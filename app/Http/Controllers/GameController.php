@@ -21,9 +21,9 @@ class GameController extends Controller
 
         // If search is provided, filter the results by game name or description
         if ($search) {
-            $query->where(function($q) use ($search) {
-                $q->where('gameName', 'like', "%{$search}%")
-                    ->orWhere('description', 'like', "%{$search}%");
+            $query->where(function($zoek) use ($search) {
+                $zoek->where('gameName', 'like', "%$search%")
+                    ->orWhere('description', 'like', "%$search%");
             });
         }
 
@@ -78,6 +78,7 @@ class GameController extends Controller
      */
     public function store(Request $request)
     {
+        // valideer gegevens
         $request->validate([
             'gameName' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
@@ -90,10 +91,9 @@ class GameController extends Controller
         $game->price = $request->input('price');
         $game->description = $request->input('description');
         $game->rating = $request->input('rating');
+        $game->user_id = auth()->id(); // De ingelogde gebruiker toekennen
         $game->save();
         return redirect()-> route('games.index');
-
-
     }
 
     /**
@@ -101,11 +101,9 @@ class GameController extends Controller
      */
     public function show(Game $game)
     {
-
+        //laat alle de games zien
         $game->load('reviews');
         return view('games.show', ['game' => $game]);
-
-
     }
 
 
@@ -114,13 +112,21 @@ class GameController extends Controller
      */
     public function edit(Game $game)
     {
+        // Zorg ervoor dat de ingelogde gebruiker alleen zijn eigen games kan bewerken
+        if ($game->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized action.');
+        }
         // Return the view with the game data
         return view('games.edit', ['game' => $game]);
     }
 
     public function update(Request $request, Game $game)
     {
-
+        // Controleer of het wel echt de user is
+        if ($game->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized action.');
+        }
+        //validatie van de gegevens
         $request->validate([
             'gameName' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
@@ -129,7 +135,7 @@ class GameController extends Controller
         ]);
 
 
-
+        //behandel de request
         $game->update([
             'gameName' => $request->gameName,
             'price' => $request->price,
@@ -140,7 +146,7 @@ class GameController extends Controller
 
 
         // Redirect back to the index with a success message
-        return redirect()->route('games.index')->with('success', 'Game updated successfully!');
+        return redirect()->route('games.index');
 
     }
 
@@ -149,10 +155,15 @@ class GameController extends Controller
      */
     public function destroy(Game $game)
     {
+        // Controleer of het wel echt de user is
+        if ($game->user_id !== auth()->id()) {
+//            abort(403, 'Unauthorized action.');
+            redirect()->route('games.index');
+        }
         // Delete the game
         $game->delete();
 
-        // Redirect to the games index with a success message
+        // Redirect to the games index met bericht
         return redirect()->route('games.index')->with('success', 'Game deleted successfully!');
     }
 }

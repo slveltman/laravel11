@@ -6,7 +6,10 @@
             <p class="text-lg font-semibold text-gray-800 text-center">Rating: {{ $game->rating }}</p> <!-- Centered rating -->
 
             <h2 class="text-xl font-bold mb-2 text-red-500 mt-4">Description</h2>
-            <p class="mb-4 text-gray-700">{{ $game->description }}</p> <!-- Description -->
+            <p class="mb-4 text-gray-700">{{ $game->description }}</p><!-- Description -->
+            <h2 class="text-xl font-bold mb-2 text-red-500 mt-4">made by</h2>
+            <p class="bg-gray-300 p-4 rounded-lg shadow-md my-4">{{$game->user->name }}</p>
+            @if (auth()->check() && auth()->id() == $game->user_id)
             @auth()
             <div class="flex justify-center mb-4"> <!-- Centered buttons -->
                 <a href="{{ route('games.edit', $game->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">
@@ -21,6 +24,7 @@
                 </form>
             </div>
             @endauth
+            @endif
 
             <h2 class="text-xl font-bold mt-6 text-red-500">Reviews</h2>
 
@@ -31,7 +35,7 @@
                     <div class="bg-gray-300 p-4 rounded-lg shadow-md my-4"> <!-- Review card -->
                         <p class="font-semibold text-red-600">Rating: {{ $review->rating }} / 5</p>
                         <p class="text-gray-800">{{ $review->review }}</p>
-                        <p class="text-sm text-gray-600">Reviewed by User {{ $review->user_id }} on {{ $review->created_at->format('F d, Y') }}</p>
+                        <p class="text-sm text-gray-600">Reviewed by User: {{ $review->user->name }} on {{ $review->created_at->format('F d, Y') }}</p>
                     </div>
                 @endforeach
             @endif
