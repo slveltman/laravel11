@@ -18,3 +18,18 @@ vandaag heb ik de crud afgemaakt ook heb ik de image eruit gehaald.
 
 18-10:
 vandaag heb ik de zoek en filter gemaakt en heb ik de login en registreer op de nav gezet 
+
+21-10:
+ik heb vandaag de authentication gemaakt zodat alleen de ingelogde gebruikers in de create, 
+update, en delete komen.
+
+22-10:
+vandaag heb ik gezorgd dat de deeplink werkt en dat alleen de gebruiker die het gemaakt heeft 
+de desbetreffende game het kan aanpassen 
+
+23-10:
+vandaag ben ik begonnen met de admin pagina. 
+ik heb de admin rol toegevoegd aan de users model.
+ik heb een foreach gemaakt zodat alle games worden weergeven
+en ik heb ervoor gezorgd dat de admin in alle games komt.
+

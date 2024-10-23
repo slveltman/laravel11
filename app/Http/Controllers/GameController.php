@@ -113,7 +113,7 @@ class GameController extends Controller
     public function edit(Game $game)
     {
         // Zorg ervoor dat de ingelogde gebruiker alleen zijn eigen games kan bewerken
-        if ($game->user_id !== auth()->id()) {
+        if ($game->user_id !== auth()->id()&& !auth()->user()->is_admin) {
             abort(403, 'Unauthorized action.');
         }
         // Return the view with the game data
@@ -123,7 +123,7 @@ class GameController extends Controller
     public function update(Request $request, Game $game)
     {
         // Controleer of het wel echt de user is
-        if ($game->user_id !== auth()->id()) {
+        if ($game->user_id !== auth()->id() && !auth()->user()->is_admin) {
             abort(403, 'Unauthorized action.');
         }
         //validatie van de gegevens
@@ -144,7 +144,6 @@ class GameController extends Controller
         ]);
 
 
-
         // Redirect back to the index with a success message
         return redirect()->route('games.index');
 
@@ -156,9 +155,8 @@ class GameController extends Controller
     public function destroy(Game $game)
     {
         // Controleer of het wel echt de user is
-        if ($game->user_id !== auth()->id()) {
-//            abort(403, 'Unauthorized action.');
-            redirect()->route('games.index');
+        if ($game->user_id !== auth()->id() && !auth()->user()->is_admin) {
+            abort(403, 'Unauthorized action.');
         }
         // Delete the game
         $game->delete();

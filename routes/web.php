@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReviewController;
@@ -19,7 +20,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/games/create', [GameController::class, 'create'])->name('games.create');
-    Route::post('/games', [GameController::class, 'store'])->name('games.store');
 
 
 });
@@ -27,6 +27,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/games/create', [GameController::class, 'create'])->name('games.create');
     Route::post('/games', [GameController::class, 'store'])->name('games.store');
+
 
 });
 
@@ -45,6 +46,10 @@ route::resource('/review', ReviewController::class);
 Route::get('/review/{game}', [ReviewController::class, 'show'])->middleware(['auth', 'verified'])->name('review.show');
 Route::get('/reviews/create/{game}', [ReviewController::class, 'create'])->middleware(['auth', 'verified'])->name('review.create');
 
+//admin route
+Route::middleware('auth')->group(function () {
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+});
 
 
 
