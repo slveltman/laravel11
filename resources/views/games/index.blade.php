@@ -29,6 +29,12 @@
                 <option value="under_3.5" {{request('rating_filter') == 'under_3.5' ? 'selected' : ''}}>Under 3.5</option>
             </select>
         </form>
+        @if(session('error'))
+            <script>
+                // Toon een alert met de foutmelding te weinig reviews
+                alert("{{ session('error') }}");
+            </script>
+        @endif
 
         <div class="flex flex-wrap justify-center">
 {{--            for loop om alle games te showen --}}

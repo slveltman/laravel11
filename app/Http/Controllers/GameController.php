@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Game;
+use App\Models\review;
 use Illuminate\Http\Request;
 
 class GameController extends Controller
@@ -19,7 +20,7 @@ class GameController extends Controller
         // Get the search input
         $search = $request->input('search');
 
-        // If search is provided, filter the results by game name or description
+        // If search is provided, filter the results by game name of description
         if ($search) {
             $query->where(function($zoek) use ($search) {
                 $zoek->where('gameName', 'like', "%$search%")
@@ -78,22 +79,33 @@ class GameController extends Controller
      */
     public function store(Request $request)
     {
-        // valideer gegevens
-        $request->validate([
+        // Controleer of de ingelogde gebruiker minstens 3 reviews heeft geschreven
+        $user = auth()->user();
+        $reviewCount = Review::where('user_id', $user->id)->count();
+
+        if ($reviewCount < 3) {
+            // Geef een foutmelding en stuur de gebruiker terug naar de index pagina
+            return redirect()->route('games.index')->with('error', 'You need to review at least 3 times before you can create a game.');
+        }
+
+        // Als de gebruiker voldoende reviews heeft ga dan door met het opslaan van de game
+        $validatedData = $request->validate([
             'gameName' => 'required|string|max:255',
-            'price' => 'required|numeric|min:0',
             'description' => 'required|string',
-            'rating' => 'required|numeric|min:0|max:5|regex:/^\d+(\.\d{1})?$/',
+            'price' => 'required|numeric',
+            'rating' => 'required|numeric|min:0|max:5',
         ]);
 
+        // Game opslaan met de gegevens van de gebruiker
         $game = new Game();
-        $game->gameName = $request->input('gameName');
-        $game->price = $request->input('price');
-        $game->description = $request->input('description');
-        $game->rating = $request->input('rating');
-        $game->user_id = auth()->id(); // De ingelogde gebruiker toekennen
+        $game->user_id = $user->id;
+        $game->gameName = $validatedData['gameName'];
+        $game->description = $validatedData['description'];
+        $game->price = $validatedData['price'];
+        $game->rating = $validatedData['rating'];
         $game->save();
-        return redirect()-> route('games.index');
+
+        return redirect()->route('games.index')->with('success', 'Game successfully added.');
     }
 
     /**

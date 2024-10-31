@@ -13,7 +13,7 @@ class AdminController extends Controller
     {
         $games = Game::all();
         $reviews = Review::all();
-        // Alleen admins mogen deze pagina zien
+        // Alleen admin mag deze pagina zien
 
 
         if (auth()->user()->is_admin) {
