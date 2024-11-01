@@ -39,6 +39,7 @@
         <div class="flex flex-wrap justify-center">
 {{--            for loop om alle games te showen --}}
                 @foreach ($games as $game)
+                    @if($game->is_active)
                 <div class="bg-gray-100 m-4 p-4 rounded-lg shadow-lg flex flex-col items-center w-60">
                     <a href="{{ route('games.show', $game->id) }}" class="text-red-600 hover:underline mb-2 text-lg font-bold">
                         {{ $game->gameName }}
@@ -50,6 +51,7 @@
                         <a href="{{ route('review.create', ['game' => $game->id]) }}" class="text-blue-500 hover:underline">Schrijf een review</a>
                     @endauth
                 </div>
+                        @endif
             @endforeach
         </div>
     </div>

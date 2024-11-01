@@ -49,6 +49,8 @@ Route::get('/reviews/create/{game}', [ReviewController::class, 'create'])->middl
 //admin route
 Route::middleware('auth')->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+    Route::post('/admin/games/{id}/toggle-status', [AdminController::class, 'GameStatus'])->name('admin.GameStatus');
+
 });
 
 

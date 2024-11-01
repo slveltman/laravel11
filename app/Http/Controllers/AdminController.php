@@ -23,4 +23,13 @@ class AdminController extends Controller
         }
 
     }
+
+    public function GameStatus($id)
+    {
+        $game = Game::findOrFail($id);
+        $game->is_active = !$game->is_active;
+        $game->save();
+
+        return redirect()->route('admin.index')->with('status', 'Game status updated successfully!');
+    }
 }

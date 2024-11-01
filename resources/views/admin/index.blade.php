@@ -1,13 +1,15 @@
 <x-layout>
-<h1>hey admin</h1>
     <table class="min-w-full bg-white">
         <thead class="bg-gray-800 text-white">
         <tr>
-            <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">Game Name</th>
-            <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm ">Price</th>
-            <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">Rating</th>
-            <th class="w-1/15 py-3 px-4 uppercase font-semibold text-sm"></th>
-            <th class="w-1/15 py-3 px-4 uppercase font-semibold text-sm"></th>
+            <th class="w-1/5 py-3 px-4 uppercase font-semibold text-sm">Game Name</th>
+            <th class="w-1/5 py-3 px-4 uppercase font-semibold text-sm ">Price</th>
+            <th class="w-1/5 py-3 px-4 uppercase font-semibold text-sm">Rating</th>
+            <th class="w-1/5 py-3 px-4 uppercase font-semibold text-sm">edit</th>
+            <th class="w-1/5 py-3 px-4 uppercase font-semibold text-sm">delete</th>
+            <th class="w-1/5 py-3 px-4 uppercase font-semibold text-sm">publish</th>
+
+
 
         </tr>
         </thead>
@@ -26,6 +28,14 @@
                             Delete
                         </button>
                     </form>
+                </td>
+                <td>
+                <form action="{{ route('admin.GameStatus', $game->id) }}" method="POST">
+                    @csrf
+                    <button type="submit"  class="btn px-4 py-2 font-bold text-white rounded {{ $game->is_active ? 'bg-green-500 hover:bg-green-700' : 'bg-red-500 hover:bg-red-700' }}">
+                        {{ $game->is_active ? 'Deactivate' : 'Activate' }}
+                    </button>
+                </form>
                 </td>
             </tr>
         @endforeach
