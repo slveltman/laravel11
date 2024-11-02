@@ -33,11 +33,11 @@ class GameController extends Controller
 
         // Apply sorting logic based on the user's choice
         if ($sort_by == 'price_asc') {
-            $query->orderBy('price', 'asc');
+            $query->orderBy('price');
         } elseif ($sort_by == 'price_desc') {
             $query->orderBy('price', 'desc');
         } elseif ($sort_by == 'rating_asc') {
-            $query->orderBy('rating', 'asc');
+            $query->orderBy('rating');
         } elseif ($sort_by == 'rating_desc') {
             $query->orderBy('rating', 'desc');
         }

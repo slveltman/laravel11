@@ -15,8 +15,7 @@ class Game extends Model
     {
         return $this->hasMany(review::class);
     }
-    // In your Game.php model
-    protected $fillable = ['gameName', 'price', 'description', 'rating', 'is_active'];
+//    protected $fillable = ['gameName', 'price', 'description', 'rating', 'is_active'];
 
     // Relatie met de User
     public function user(): BelongsTo

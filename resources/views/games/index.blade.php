@@ -46,7 +46,7 @@
                     </a>
                     <div class="text-green-600 font-semibold">${{ $game->price, 2 }}</div>
                     <div class="text-gray-700">{{ Str::limit($game->description, 50) }}</div>
-                    <div class="text-yellow-600 font-semibold mt-2">{{ $game->rating }}/5</div>
+                    <div class="text-yellow-400 font-semibold mt-2">{{ $game->rating }}/5</div>
                     @auth
                         <a href="{{ route('review.create', ['game' => $game->id]) }}" class="text-blue-500 hover:underline">Schrijf een review</a>
                     @endauth

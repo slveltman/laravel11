@@ -33,3 +33,12 @@ ik heb de admin rol toegevoegd aan de users model.
 ik heb een foreach gemaakt zodat alle games worden weergeven
 en ik heb ervoor gezorgd dat de admin in alle games komt.
 
+25-10 tot 31-10 op vakantie
+
+1-11:
+vandaag heb ik de admin page de publish button gemaakt. nu voldoet de applicatie aan alle eisen.
+morgen kan ik nog eventueel een style aan passen meer dingen in layouts doen en nog eventueel een image in de game model toevogen.
+
+2-11: vandaag heb ik de de nav aangepast en de game index aangepast en wat style en typ foute eruit gehaald.
+
+
