@@ -21,7 +21,6 @@ class AdminController extends Controller
         } else {
             return redirect('/games'); // Geen admin stuur terug naar de homepage
         }
-
     }
 
     public function GameStatus($id)
@@ -29,7 +28,6 @@ class AdminController extends Controller
         $game = Game::findOrFail($id);
         $game->is_active = !$game->is_active;
         $game->save();
-
-        return redirect()->route('admin.index')->with('status', 'Game status updated successfully!');
+        return redirect()->route('admin.index');
     }
 }
